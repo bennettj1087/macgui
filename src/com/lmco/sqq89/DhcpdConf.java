@@ -1,11 +1,14 @@
 package com.lmco.sqq89;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.util.HashMap;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.LinkedList;
 
 public class DhcpdConf {
 	private String header;
-	private HashMap<String,Host> hosts;
+	private LinkedList<Host> hosts;
 	
 	/**
 	 * TODO
@@ -13,44 +16,23 @@ public class DhcpdConf {
 	 * Reads in and parses dhcpd.conf file
 	 * 
 	 */
-	public DhcpdConf() {
-		hosts = new HashMap<String,Host>();
-		Host h;
+	public DhcpdConf(File f) {
+		hosts = new LinkedList<Host>();
+		header = new String();
 		
-		h = new Host("s858a30", "192.168.31.130");
-		h.addEth(0, "00:30:48:aa:bb:cc");
-		h.addEth(1, "00:30:48:aa:bb:cd");
-		h.addEth(2, "00:15:17:aa:bb:cc");
-		h.addEth(3, "00:15:17:aa:bb:cd");
-		hosts.put("s858a30", h);
-		
-		h = new Host("s845a20", "192.168.31.131");
-		h.addEth(0, "00:30:48:aa:bb:cc");
-		h.addEth(1, "00:30:48:aa:bb:cd");
-		h.addEth(2, "00:15:17:aa:bb:cc");
-		h.addEth(3, "00:15:17:aa:bb:cd");
-		hosts.put("s845a20", h);
-		
-		h = new Host("s871a20", "192.168.31.132");
-		h.addEth(0, "00:30:48:aa:bb:cc");
-		h.addEth(1, "00:30:48:aa:bb:cd");
-		h.addEth(2, "00:15:17:aa:bb:cc");
-		h.addEth(3, "00:15:17:aa:bb:cd");
-		hosts.put("s871a20", h);
-		
-		h = new Host("s846a34", "192.168.31.133");
-		h.addEth(0, "00:30:48:aa:bb:cc");
-		h.addEth(1, "00:30:48:aa:bb:cd");
-		h.addEth(2, "00:15:17:aa:bb:cc");
-		h.addEth(3, "00:15:17:aa:bb:cd");
-		hosts.put("s846a34", h);
+		// Open dhcpd.conf file and create BufferedReader
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			
+			
+		} catch(FileNotFoundException fnfe) {
+			System.err.println("FileNotFoundException: " + fnfe.getMessage());
+		}
 	}
 	
-	public HashMap<String,Host> getHosts() { return hosts; }
+	public LinkedList<Host> getHosts() { return hosts; }
 	
-	public static void main() {
-		DhcpdConf d = new DhcpdConf();
-		
-
+	public static void main(String[] args) {
+		DhcpdConf d = new DhcpdConf(new File("dhcpd.conf"));
 	}
 }

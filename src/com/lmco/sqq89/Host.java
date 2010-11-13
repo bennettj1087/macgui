@@ -13,6 +13,7 @@ public class Host {
 	public Host(String newHostname, String newIP) {
 		this.hostname = new String(newHostname);
 		this.ipAddress = new String(newIP);
+		this.eths = new String[4];
 	}
 	
 	/**
@@ -29,9 +30,11 @@ public class Host {
 				+  "\thardware ethernet " + eths[i] + ";\n"
 				+  "\tfixed-address " + ipAddress + ";\n"
 				+  "\tfilename \"pxelinux.0\";\n"
-				+  "\toption hostname " + hostname + ";\n"
+				+  "\toption hostname \"" + hostname + "\";\n"
 				+  "}\n\n";
 		}
+		
+		System.out.println(out);
 	}
 	
 	/**
