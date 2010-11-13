@@ -15,6 +15,10 @@ public class Host {
 		this.ipAddress = new String(newIP);
 	}
 	
+	/**
+	 * Prints Host information properly formatted
+	 * for dhcpd.conf file.
+	 */
 	public void printHost() {
 		String out = new String();
 		
@@ -28,5 +32,16 @@ public class Host {
 				+  "\toption hostname " + hostname + ";\n"
 				+  "}\n\n";
 		}
+	}
+	
+	/**
+	 * Adds/updates MAC address for a particular
+	 * Ethernet interface.
+	 * 
+	 * @param eth
+	 * @param macAddress
+	 */
+	public void addEth(int eth, String macAddress) {
+		eths[eth] = new String(macAddress);
 	}
 }
