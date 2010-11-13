@@ -1,11 +1,9 @@
 package com.lmco.sqq89;
 
-import java.util.LinkedList;
-
 public class Host {
 	private String hostname;
 	private String ipAddress;
-	private LinkedList<EthEntry> entries;
+	private String[] eths;
 	
 	/**
 	 * Creates new Host for DhcpdConf
@@ -15,7 +13,20 @@ public class Host {
 	public Host(String newHostname, String newIP) {
 		this.hostname = new String(newHostname);
 		this.ipAddress = new String(newIP);
+	}
+	
+	public void printHost() {
+		String out = new String();
 		
-		this.entries = new LinkedList<EthEntry>();
+		for (int i = 0; i < eths.length; i++) {
+			out += "host " + hostname + "-eth" + i + " {\n"
+				+  "\t## Unit " + hostname.substring(1, hostname.indexOf('a')-1) + " " 
+					+ hostname.substring(hostname.indexOf('a')).toUpperCase() + " ##\n"
+				+  "\thardware ethernet " + eths[i] + ";\n"
+				+  "\tfixed-address " + ipAddress + ";\n"
+				+  "\tfilename \"pxelinux.0\";\n"
+				+  "\toption hostname " + hostname + ";\n"
+				+  "}\n\n";
+		}
 	}
 }
