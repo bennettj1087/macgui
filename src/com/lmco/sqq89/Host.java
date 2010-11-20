@@ -5,6 +5,12 @@ public class Host {
 	private String ipAddress;
 	private String[] eths;
 	
+	public Host() {
+		this.hostname = new String("");
+		this.ipAddress = new String("");
+		this.eths = new String[4];
+	}
+	
 	/**
 	 * Creates new Host for DhcpdConf
 	 * 
