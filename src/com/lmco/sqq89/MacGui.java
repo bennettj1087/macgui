@@ -1,43 +1,82 @@
 package com.lmco.sqq89;
 
-import java.awt.Dimension;
-import java.io.File;
+import javax.swing.SwingUtilities;
+import java.awt.BorderLayout;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
+import javax.swing.JPanel;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
+import java.awt.Dimension;
+import javax.swing.JButton;
 
 public class MacGui extends JFrame {
+
 	private static final long serialVersionUID = 1L;
-	
-	public MacGui(String title) {
-		super(title);
+	private JPanel jContentPane = null;
+	private JButton saveButton = null;
+
+	/**
+	 * This method initializes saveButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getSaveButton() {
+		if (saveButton == null) {
+			saveButton = new JButton();
+		}
+		return saveButton;
 	}
 
-	public static void createAndShowGui() {
-		MacGui mg = new MacGui("MAC GUI");
-		mg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JMenuBar menubar = new JMenuBar();
-		menubar.setPreferredSize(new Dimension(200,20));
-		
-		mg.setJMenuBar(menubar);
-		
-		mg.pack();
-		mg.setVisible(true);	
-	}
-
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
-/*		DhcpdConf d = new DhcpdConf(new File("dhcpd.conf"));
-		
-		System.out.println(d.getHeader());
-		for (Host h : d.getHosts())
-			h.printHost();*/
-		
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				createAndShowGui();
+				MacGui thisClass = new MacGui();
+				thisClass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				thisClass.setVisible(true);
 			}
 		});
 	}
-}
+
+	/**
+	 * This is the default constructor
+	 */
+	public MacGui() {
+		super();
+		initialize();
+	}
+
+	/**
+	 * This method initializes this
+	 * 
+	 * @return void
+	 */
+	private void initialize() {
+		this.setSize(774, 497);
+		this.setContentPane(getJContentPane());
+		try {
+			this.setTitle("MAC GUI (Running on " + InetAddress.getLocalHost().getHostName() + ")");
+		} catch(UnknownHostException uhe) {
+			System.err.println("UnknownHostException: " + uhe.getMessage());
+		}
+	}
+
+	/**
+	 * This method initializes jContentPane
+	 * 
+	 * @return javax.swing.JPanel
+	 */
+	private JPanel getJContentPane() {
+		if (jContentPane == null) {
+			jContentPane = new JPanel();
+			jContentPane.setLayout(new BorderLayout());
+			jContentPane.add(getSaveButton(), BorderLayout.SOUTH);
+		}
+		return jContentPane;
+	}
+
+}  //  @jve:decl-index=0:visual-constraint="55,5"
