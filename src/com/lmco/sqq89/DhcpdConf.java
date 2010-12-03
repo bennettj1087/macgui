@@ -5,11 +5,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.LinkedList;
 
 public class DhcpdConf {
 	private String header;
 	private LinkedList<Host> hosts;
+	private File dhcpdFile;
 	
 	/**
 	 * TODO
@@ -20,6 +22,7 @@ public class DhcpdConf {
 	public DhcpdConf(File f) {
 		hosts = new LinkedList<Host>();
 		header = new String();
+		dhcpdFile = f;
 		
 		// Open dhcpd.conf file and create BufferedReader
 		try {
@@ -50,22 +53,22 @@ public class DhcpdConf {
 					continue;
 				}
 				// MAC Address line starts with "hardware"
-				else if (line.startsWith("hardware")) {
-					currMac = line.substring(line.lastIndexOf(' '), line.indexOf(';')-1);
+				else if (line.contains("hardware")) {
+					currMac = line.substring(line.lastIndexOf('\t'), line.indexOf(';')).trim();
 					continue;
 				}
 				// IP Address line starts with "fixed-address"
-				else if (line.startsWith("fixed-address")) {
-					currIP = line.substring(line.indexOf(' '), line.indexOf(';')-1);
+				else if (line.contains("fixed-address")) {
+					currIP = line.substring(line.lastIndexOf('\t'), line.indexOf(';')).trim();
 					continue;
 				}
 				// This line is the same for all hosts, no need to save it
-				else if (line.startsWith("filename")) {
+				else if (line.contains("filename")) {
 					continue;
 				}
 				// This line contains the host name, it should match with
 				// whatever the current hostname is.
-				else if (line.startsWith("option")) {
+				else if (line.contains("option host")) {
 					// If the hostname listed here does not match the
 					// current hostname we're working with, then throw
 					// an exception
@@ -75,9 +78,9 @@ public class DhcpdConf {
 					}
 				}
 				// If it's a }, a # or a blank line, just ignore it
-				else if (line.startsWith("}"))
+				else if (line.contains("}"))
 					continue;
-				else if (line.startsWith("#"))
+				else if (line.contains("#"))
 					continue;
 				else if (line.equals(""))
 					continue;
@@ -89,10 +92,10 @@ public class DhcpdConf {
 				
 				if (newHost) {
 					h = new Host(currHostname, currIP);
-					h.addEth(currEth, currMac);
+					h.addUpdateEth(currEth, currMac);
 				}
 				else
-					h.addEth(currEth, currMac);
+					h.addUpdateEth(currEth, currMac);
 				
 				if (currEth == 3)
 					hosts.add(h);
@@ -110,11 +113,36 @@ public class DhcpdConf {
 	public LinkedList<Host> getHosts() { return hosts; }
 	public String getHeader() { return header; }
 	
-/*	public static void main(String[] args) {
+	public void writeDhcpdConf() {
+		try {
+			// Open the output file for writing
+			PrintStream out = new PrintStream(dhcpdFile);
+			
+			// Print dhcpd.conf file
+			out.println(getHeader());
+			for (Host h : getHosts())
+				h.printHost(out);
+			out.println('}');
+			
+			
+		} catch (IOException ioe) {
+			System.err.println("IOException: " + ioe.getMessage());
+		}
+
+	}
+	
+	public static void main(String[] args) {
 		DhcpdConf d = new DhcpdConf(new File("dhcpd.conf"));
 		
-		System.out.println(d.getHeader());
-		for (Host h : d.getHosts())
-			h.printHost();
-	}*/
+		d.writeDhcpdConf();
+	}
+
+	public void syncDhcpdConf() {
+		// Use system sync89 tool to sync dhpcd.conf file to all nodes
+		try {
+			Runtime.getRuntime().exec("sync89 /etc/dhcpd.conf");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

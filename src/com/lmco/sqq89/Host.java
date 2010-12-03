@@ -1,5 +1,7 @@
 package com.lmco.sqq89;
 
+import java.io.PrintStream;
+
 public class Host {
 	private String hostname;
 	private String ipAddress;
@@ -10,6 +12,10 @@ public class Host {
 		this.ipAddress = new String("");
 		this.eths = new String[4];
 	}
+	
+	public String getHostname() { return hostname; } 
+	public String getIPAddress() { return ipAddress; } 
+	public String[] getEths() { return eths; } 
 	
 	/**
 	 * Creates new Host for DhcpdConf
@@ -26,21 +32,18 @@ public class Host {
 	 * Prints Host information properly formatted
 	 * for dhcpd.conf file.
 	 */
-	public void printHost() {
-		String out = new String();
-		
+	public void printHost(PrintStream out) {
 		for (int i = 0; i < eths.length; i++) {
-			out += "host " + hostname + "-eth" + i + " {\n"
-				+  "\t## Unit " + hostname.substring(1, hostname.indexOf('a')-1) + " " 
-					+ hostname.substring(hostname.indexOf('a')).toUpperCase() + " ##\n"
-				+  "\thardware ethernet " + eths[i] + ";\n"
-				+  "\tfixed-address " + ipAddress + ";\n"
-				+  "\tfilename \"pxelinux.0\";\n"
-				+  "\toption hostname \"" + hostname + "\";\n"
-				+  "}\n\n";
+			out.println("host " + hostname + "-eth" + i + " {");
+			out.println("\t#--Unit " + hostname.substring(1, hostname.indexOf('a')) + " " +
+					hostname.substring(hostname.indexOf('a')).toUpperCase() + "--#");
+			out.println("\thardware ethernet\t" + eths[i] + ";");
+			out.println("\tfixed-address\t\t" + ipAddress + ";");
+			out.println("\tfilename\t\t\"pxelinux.0\";");
+			out.println("\toption host-name\t\"" + hostname + "\";");
+			out.println("}");
+			out.println("");
 		}
-		
-		System.out.println(out);
 	}
 	
 	/**
@@ -50,7 +53,7 @@ public class Host {
 	 * @param eth
 	 * @param macAddress
 	 */
-	public void addEth(int eth, String macAddress) {
+	public void addUpdateEth(int eth, String macAddress) {
 		eths[eth] = new String(macAddress);
 	}
 }
