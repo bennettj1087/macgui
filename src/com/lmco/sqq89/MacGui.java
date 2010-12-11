@@ -1,5 +1,6 @@
 package com.lmco.sqq89;
 
+import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.io.File;
 import java.net.InetAddress;
@@ -179,6 +180,7 @@ public class MacGui extends JFrame {
 						JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 				panes.get(currCabinet).getViewport().setView(new CabinetPanel());
 				((CabinetPanel) panes.get(currCabinet).getViewport().getView()).setLayout(null);
+				((CabinetPanel) panes.get(currCabinet).getViewport().getView()).setPreferredSize(new Dimension(350,375));
 				getMacTabbedPane().addTab(currCabinet, panes.get(currCabinet));
 			}
 			
@@ -226,7 +228,12 @@ public class MacGui extends JFrame {
 			}
 			
 			// Store Y-value
-			((CabinetPanel) panes.get(currCabinet).getViewport().getView()).setCurrY(currY + 5);
+			currY+=5;
+			((CabinetPanel) panes.get(currCabinet).getViewport().getView()).setCurrY(currY);
+			
+			// Update preferred size of JPanel to match currY value
+			((CabinetPanel) panes.get(currCabinet).getViewport().getView()).setPreferredSize(new Dimension(350,currY));
+			
 		}
 	}
 
