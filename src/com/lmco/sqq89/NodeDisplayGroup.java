@@ -25,7 +25,8 @@ public class NodeDisplayGroup {
 		macs = new MacAddressDisplay[h.getEths().length];
 		
 		for (int i = 0; i < macs.length; i++) {
-			macs[i] = new MacAddressDisplay(i, h.getEths()[i]);
+			if (h.getEths()[i] != null)
+				macs[i] = new MacAddressDisplay(i, h.getEths()[i]);
 		}
 	}
 	

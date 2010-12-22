@@ -31,18 +31,34 @@ public class Host {
 	/**
 	 * Prints Host information properly formatted
 	 * for dhcpd.conf file.
+	 * @param out
 	 */
 	public void printHost(PrintStream out) {
 		for (int i = 0; i < eths.length; i++) {
-			out.println("host " + hostname + "-eth" + i + " {");
-			out.println("\t#--Unit " + hostname.substring(1, hostname.indexOf('a')) + " " +
-					hostname.substring(hostname.indexOf('a')).toUpperCase() + "--#");
-			out.println("\thardware ethernet\t" + eths[i] + ";");
-			out.println("\tfixed-address\t\t" + ipAddress + ";");
-			out.println("\tfilename\t\t\"pxelinux.0\";");
-			out.println("\toption host-name\t\"" + hostname + "\";");
-			out.println("}");
-			out.println("");
+			if (eths[i] != null) {
+				out.println("host " + hostname + "-eth" + i + " {");
+				out.println("\t#--Unit " + hostname.substring(1, hostname.indexOf('a')) + " " +
+						hostname.substring(hostname.indexOf('a')).toUpperCase() + "--#");
+				out.println("\thardware ethernet\t" + eths[i] + ";");
+				out.println("\tfixed-address\t\t" + ipAddress + ";");
+				out.println("\tfilename\t\t\t\"pxelinux.0\";");
+				out.println("\toption host-name\t\"" + hostname + "\";");
+				out.println("}");
+				out.println("");
+			}
+		}
+	}
+	
+	/**
+	 * Prints Host information properly formatted
+	 * for ethers file
+	 * 
+	 * @param out
+	 */
+	public void printEthersHost(PrintStream out) {
+		for (int i = 0; i < eths.length; i++) {
+			if (eths[i] != null)
+				out.println(hostname + "\t" + eths[i] + ";");
 		}
 	}
 	

@@ -14,10 +14,13 @@ public class DhcpdConf {
 	private File dhcpdFile;
 	
 	/**
-	 * TODO
+	 * Main constructor for DhcpdConf class.  This method will attempt
+	 * to parse the contents of a dhcpd.conf file and store the results
+	 * in various data structures.  This method throws and catches the 
+	 * InvalidDhcpdConfException if it encounters something it doesn't
+	 * understand.
 	 * 
-	 * Reads in and parses dhcpd.conf file
-	 * 
+	 * @param f
 	 */
 	public DhcpdConf(File f) {
 		hosts = new LinkedList<Host>();
@@ -110,8 +113,26 @@ public class DhcpdConf {
 		} 
 	}
 	
+	// Getters for header and hosts
 	public LinkedList<Host> getHosts() { return hosts; }
 	public String getHeader() { return header; }
+	
+	/**
+	 * Searches the host list for a particular node.
+	 * 
+	 * TODO: Implement hosts as a SortedMap
+	 * 
+	 * @param hostname
+	 * @return
+	 */
+	public Host findHost(String hostname) {
+		for (Host h : hosts) {
+			if (h.getHostname().equals(hostname))
+				return h;
+		}
+		
+		return null;
+	}
 	
 	public void writeDhcpdConf() {
 		try {
@@ -128,7 +149,6 @@ public class DhcpdConf {
 		} catch (IOException ioe) {
 			System.err.println("IOException: " + ioe.getMessage());
 		}
-
 	}
 	
 	public static void main(String[] args) {

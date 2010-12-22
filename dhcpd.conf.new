@@ -6,51 +6,19 @@ shared-network sqq89-net {
 		option broadcast-address 192.168.31.255;
 		option routers 192.168.31.1;
 
-host s858a30-eth0 {
-	#--Unit 858 A30--#
-	hardware ethernet	00:30:48:7a:11:60;
-	fixed-address		192.168.31.130;
-	filename		"pxelinux.0";
-	option host-name	"s858a30";
-}
-
-host s858a30-eth1 {
-	#--Unit 858 A30--#
-	hardware ethernet	00:30:48:7a:11:61;
-	fixed-address		192.168.31.130;
-	filename		"pxelinux.0";
-	option host-name	"s858a30";
-}
-
-host s858a30-eth2 {
-	#--Unit 858 A30--#
-	hardware ethernet	00:15:17:dd:c4:ee;
-	fixed-address		192.168.31.130;
-	filename		"pxelinux.0";
-	option host-name	"s858a30";
-}
-
-host s858a30-eth3 {
-	#--Unit 858 A30--#
-	hardware ethernet	00:15:17:dd:c4:ef;
-	fixed-address		192.168.31.130;
-	filename		"pxelinux.0";
-	option host-name	"s858a30";
-}
-
 host s845a20-eth0 {
 	#--Unit 845 A20--#
-	hardware ethernet	00:30:48:7a:10:a0;
+	hardware ethernet	00:30:48:7a:10:c0;
 	fixed-address		192.168.31.131;
-	filename		"pxelinux.0";
+	filename			"pxelinux.0";
 	option host-name	"s845a20";
 }
 
 host s845a20-eth1 {
 	#--Unit 845 A20--#
-	hardware ethernet	00:30:48:7a:10:a1;
+	hardware ethernet	00:30:48:7a:10:c1;
 	fixed-address		192.168.31.131;
-	filename		"pxelinux.0";
+	filename			"pxelinux.0";
 	option host-name	"s845a20";
 }
 
@@ -58,7 +26,7 @@ host s845a20-eth2 {
 	#--Unit 845 A20--#
 	hardware ethernet	00:15:17:dd:e4:5e;
 	fixed-address		192.168.31.131;
-	filename		"pxelinux.0";
+	filename			"pxelinux.0";
 	option host-name	"s845a20";
 }
 
@@ -66,8 +34,40 @@ host s845a20-eth3 {
 	#--Unit 845 A20--#
 	hardware ethernet	00:15:17:dd:e4:5f;
 	fixed-address		192.168.31.131;
-	filename		"pxelinux.0";
+	filename			"pxelinux.0";
 	option host-name	"s845a20";
+}
+
+host s858a30-eth0 {
+	#--Unit 858 A30--#
+	hardware ethernet	00:30:48:7a:11:60;
+	fixed-address		192.168.31.130;
+	filename			"pxelinux.0";
+	option host-name	"s858a30";
+}
+
+host s858a30-eth1 {
+	#--Unit 858 A30--#
+	hardware ethernet	00:30:48:7a:11:61;
+	fixed-address		192.168.31.130;
+	filename			"pxelinux.0";
+	option host-name	"s858a30";
+}
+
+host s858a30-eth2 {
+	#--Unit 858 A30--#
+	hardware ethernet	00:15:17:dd:c4:ee;
+	fixed-address		192.168.31.130;
+	filename			"pxelinux.0";
+	option host-name	"s858a30";
+}
+
+host s858a30-eth3 {
+	#--Unit 858 A30--#
+	hardware ethernet	00:15:17:dd:c4:ef;
+	fixed-address		192.168.31.130;
+	filename			"pxelinux.0";
+	option host-name	"s858a30";
 }
 
 }
