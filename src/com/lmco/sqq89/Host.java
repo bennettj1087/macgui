@@ -2,17 +2,34 @@ package com.lmco.sqq89;
 
 import java.io.PrintStream;
 
+/**
+ * The Host class is used to store a set of entries from 
+ * the dhcpd.conf (or ethers) file pertaining to a single
+ * node in the SQQ89 system.  Since each node typically has
+ * more than one network interface, the hosts are differentiated
+ * using the form hostname-ethX.  A host object will store the
+ * MAC address information for up to 4 eths per host (the
+ * current maximum per node on SQQ89).
+ * 
+ * @author Justin Bennett
+ * 12/2010
+ */
 public class Host {
+	// Private members to store host information
 	private String hostname;
 	private String ipAddress;
 	private String[] eths;
 	
+	/**
+	 * Default constructor
+	 */
 	public Host() {
 		this.hostname = new String("");
 		this.ipAddress = new String("");
 		this.eths = new String[4];
 	}
-	
+
+	// Get methods for private members
 	public String getHostname() { return hostname; } 
 	public String getIPAddress() { return ipAddress; } 
 	public String[] getEths() { return eths; } 

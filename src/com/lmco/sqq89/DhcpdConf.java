@@ -8,6 +8,15 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.LinkedList;
 
+/**
+ * DhcpdConf is an object used to hold all the details contained
+ * in a dhcpd.conf file.  It is heavily tailored to parse the format
+ * used on the SQQ89 program for ACB09 and ACB11, using the presence
+ * of specific strings to help in the parsing process.
+ * 
+ * @author Justin Bennett
+ * 12/2010
+ */
 public class DhcpdConf {
 	private String header;
 	private LinkedList<Host> hosts;

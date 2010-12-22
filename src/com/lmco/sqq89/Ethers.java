@@ -8,6 +8,14 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.LinkedList;
 
+/**
+ * Ethers is an object used to hold the hostname - MAC address
+ * pairs contained in an ethers file (used by rarpd for network
+ * booting).
+ * 
+ * @author Justin Bennett
+ * 12/2010
+ */
 public class Ethers {
 	private File ethersFile;
 	private LinkedList<Host> hosts;

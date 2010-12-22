@@ -30,6 +30,7 @@ public class NodeDisplayGroup {
 		}
 	}
 	
+	// Get methods
 	public JLabel getNodeNameLabel() { return nodeNameLabel; }
 	public MacAddressDisplay[] getMacs() { return macs; }
 }
