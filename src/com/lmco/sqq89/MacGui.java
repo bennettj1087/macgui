@@ -60,7 +60,8 @@ public class MacGui extends JFrame {
 	private JMenuItem openMenuItem = null;
 	private JMenu helpMenu = null;
 	private JMenuItem aboutMenuItem = null;
-	private JLabel fileLabel = null;
+	private JLabel dhcpdFileLabel = null;
+	private JLabel ethersFileLabel = null;
 	
 	/**
 	 * This method initializes saveButton	
@@ -187,8 +188,9 @@ public class MacGui extends JFrame {
 		
 		// Parse dhcpd.conf file
 		d = new DhcpdConf(new File(dhcpdFilename));
-		fileLabel.setText("Current file: " + dhcpdFilename);
 		e = new Ethers(new File(ethersFilename));
+		dhcpdFileLabel.setText("Current dhcpd file: " + dhcpdFilename);
+		ethersFileLabel.setText("Current ethers file: " + ethersFilename);
 		
 		// Add hosts from each of dhcpd.conf and ethers files
 		addHosts(d.getHosts());
@@ -391,17 +393,22 @@ public class MacGui extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
-			fileLabel = new JLabel();
-			fileLabel.setBounds(new Rectangle(15, 416, 364, 25));
-			fileLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			fileLabel.setText("");
+			ethersFileLabel = new JLabel();
+			ethersFileLabel.setBounds(new Rectangle(15, 429, 362, 19));
+			ethersFileLabel.setText("");
+			ethersFileLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			dhcpdFileLabel = new JLabel();
+			dhcpdFileLabel.setBounds(new Rectangle(15, 407, 362, 18));
+			dhcpdFileLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			dhcpdFileLabel.setText("");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(getSaveButton(), null);
 			jContentPane.add(getDistButton(), null);
 			jContentPane.add(getRestartDHCPButton(), null);
 			jContentPane.add(getMacTabbedPane(), null);
-			jContentPane.add(fileLabel, null);
+			jContentPane.add(dhcpdFileLabel, null);
+			jContentPane.add(ethersFileLabel, null);
 		}
 		return jContentPane;
 	}
