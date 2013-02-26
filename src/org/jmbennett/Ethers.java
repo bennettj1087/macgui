@@ -1,4 +1,4 @@
-package com.lmco.sqq89;
+package org.jmbennett;
 
 import java.io.BufferedReader;
 import java.io.File;

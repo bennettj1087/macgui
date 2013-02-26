@@ -1,4 +1,4 @@
-package com.lmco.sqq89;
+package org.jmbennett;
 
 import java.awt.Color;
 import java.awt.event.FocusEvent;

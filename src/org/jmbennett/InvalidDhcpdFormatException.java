@@ -1,4 +1,4 @@
-package com.lmco.sqq89;
+package org.jmbennett;
 
 /**
  * Exception to be thrown when dhcpd.conf file format is found

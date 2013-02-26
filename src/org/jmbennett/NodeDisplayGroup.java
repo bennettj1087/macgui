@@ -1,4 +1,4 @@
-package com.lmco.sqq89;
+package org.jmbennett;
 
 import javax.swing.JLabel;
 
